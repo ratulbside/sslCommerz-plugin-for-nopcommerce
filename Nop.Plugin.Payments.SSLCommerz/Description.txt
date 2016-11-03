@@ -1,0 +1,8 @@
+﻿Group: Payment methods
+FriendlyName: SSLCommerz Gateway
+SystemName: Payments.SSLCommerz
+Version: 1.50
+SupportedVersions: 3.80
+Author: Ratul Paul
+DisplayOrder: 1
+FileName: Nop.Plugin.Payments.SSLCommerz.dll

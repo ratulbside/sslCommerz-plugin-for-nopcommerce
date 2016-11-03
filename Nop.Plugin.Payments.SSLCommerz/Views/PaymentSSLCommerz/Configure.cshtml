@@ -1,0 +1,150 @@
+﻿@{
+    Layout = "";
+}
+@model ConfigurationModel
+@using Nop.Web.Framework;
+@using Nop.Plugin.Payments.SSLCommerz.Models;
+
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>
+                    <b>SSLCommerz Payment Gateway Configuration (Only for Bangladesh)</b>
+                    <br />
+                    This plugin supports localization. So, you can edit texts associated with this. The string resources which are used in this plugin are: <br />
+                    <ol>
+                        <li>Plugins.Payments.SSLCommerz.RedirectionTip</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.UseSandbox</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.UseSandbox.Hint</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.StoreId</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.StoreId.Hint</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.StorePassword</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.StorePassword.Hint</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.PassProductNamesAndTotals</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.PassProductNamesAndTotals.Hint</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.PrefferedCardTypes</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.PrefferedCardTypes.Hint</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.AdditionalFee</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.AdditionalFee.Hint</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.AdditionalFeePercentage</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.AdditionalFeePercentage.Hint</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.ReturnFromSSLCommerzWithoutPaymentRedirectsToOrderDetailsPage</li>
+                        <li>Plugins.Payments.SSLCommerz.Fields.ReturnFromSSLCommerzWithoutPaymentRedirectsToOrderDetailsPage.Hint</li>
+                        <li>Plugins.Payments.SSLCommerz.PaymentErrorMessage</li>
+                    </ol>
+                    <br />
+                    <b>Note: If you disable IPN, orders won't be automatically makrd as paid.</b>
+                </p>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.OverrideStoreCheckboxFor(model => model.UseSandbox_OverrideForStore, model => model.UseSandbox, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.UseSandbox)
+                    </div>
+                    <div class="col-md-8">
+                        @Html.NopEditorFor(model => model.UseSandbox)
+                        @Html.ValidationMessageFor(model => model.UseSandbox)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.OverrideStoreCheckboxFor(model => model.StoreId_OverrideForStore, model => model.StoreId, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.StoreId)
+                    </div>
+                    <div class="col-md-8">
+                        @Html.NopEditorFor(model => model.StoreId)
+                        @Html.ValidationMessageFor(model => model.StoreId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.OverrideStoreCheckboxFor(model => model.StorePassword_OverrideForStore, model => model.StorePassword, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.StorePassword)
+                    </div>
+                    <div class="col-md-8">
+                        @Html.NopEditorFor(model => model.StorePassword)
+                        @Html.ValidationMessageFor(model => model.StorePassword)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.OverrideStoreCheckboxFor(model => model.PassProductNamesAndTotals_OverrideForStore, model => model.PassProductNamesAndTotals, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.PassProductNamesAndTotals)
+                    </div>
+                    <div class="col-md-8">
+                        @Html.NopEditorFor(model => model.PassProductNamesAndTotals)
+                        @Html.ValidationMessageFor(model => model.PassProductNamesAndTotals)
+                    </div>
+                </div>
+                <div class="form-group" style="display:none">
+                    <div class="col-md-4">
+                        @Html.NopLabelFor(model => model.AvailableCardTypes)
+                    </div>
+                    <div class="col-md-8">
+                        @foreach (var act in Model.AvailableCardTypes)
+                        {
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="CheckedCardTypes" value="@(act)" checked="@Model.PrefferedCardTypes.Contains(act)" />
+                                    @act
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.OverrideStoreCheckboxFor(model => model.EnableIpn_OverrideForStore, model => model.EnableIpn, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.EnableIpn)
+                    </div>
+                    <div class="col-md-8">
+                        @Html.NopEditorFor(model => model.EnableIpn)
+                        @Html.ValidationMessageFor(model => model.EnableIpn)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.OverrideStoreCheckboxFor(model => model.AdditionalFee_OverrideForStore, model => model.AdditionalFee, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.AdditionalFee)
+                    </div>
+                    <div class="col-md-8">
+                        @Html.NopEditorFor(model => model.AdditionalFee)
+                        @Html.ValidationMessageFor(model => model.AdditionalFee)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.OverrideStoreCheckboxFor(model => model.AdditionalFeePercentage_OverrideForStore, model => model.AdditionalFeePercentage, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.AdditionalFeePercentage)
+                    </div>
+                    <div class="col-md-8">
+                        @Html.NopEditorFor(model => model.AdditionalFeePercentage)
+                        @Html.ValidationMessageFor(model => model.AdditionalFeePercentage)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.OverrideStoreCheckboxFor(model => model.ReturnFromSSLCommerzWithoutPaymentRedirectsToOrderDetailsPage_OverrideForStore, model => model.ReturnFromSSLCommerzWithoutPaymentRedirectsToOrderDetailsPage, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.ReturnFromSSLCommerzWithoutPaymentRedirectsToOrderDetailsPage)
+                    </div>
+                    <div class="col-md-8">
+                        @Html.NopEditorFor(model => model.ReturnFromSSLCommerzWithoutPaymentRedirectsToOrderDetailsPage)
+                        @Html.ValidationMessageFor(model => model.ReturnFromSSLCommerzWithoutPaymentRedirectsToOrderDetailsPage)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-8">
+                        <input type="submit" name="save" class="btn bg-blue" value="@T("Admin.Common.Save")" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
